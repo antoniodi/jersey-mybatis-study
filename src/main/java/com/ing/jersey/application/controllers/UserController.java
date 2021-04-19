@@ -38,8 +38,9 @@ public class UserController {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response getUsers( User user ) {
-        listaUsuarios.add( user );
-        return Response.ok( listaUsuarios ).build();
+    public Response createUser( User user ) {
+        this.usersMapper.createUser( user );
+        List<User> users = this.usersMapper.findAll();
+        return Response.ok( users ).build();
     }
 }
