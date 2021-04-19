@@ -1,6 +1,8 @@
-package com.ing.jersey.application.controllers.queries;
+package com.ing.jersey.application.controllers;
 
 import com.ing.jersey.domain.model.entities.User;
+import com.ing.jersey.mapper.UsersMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -9,15 +11,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Path("/users")
-public class UserQuery {
+public class UserController {
 
     private static final List<User> listaUsuarios = new ArrayList<User>() {
         {
-            add(new User("Rosa", "Marfil"));
-            add(new User("Pepito", "Grillo"));
-            add(new User("Manuela", "Lago"));
+            add(new User( "1", "Rosa", "Marfil"));
+            add(new User( "2", "Pepito", "Grillo"));
+            add(new User( "3", "Manuela", "Lago"));
         }
     };
+
+    @Autowired
+    private UsersMapper usersMapper;
 
     /**
      * URL: http://localhost:8080/API_REST_WS-RS/api/users
@@ -26,7 +31,8 @@ public class UserQuery {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getUsers() {
-        return Response.ok( listaUsuarios ).build();
+        List<User> users = this.usersMapper.findAll();
+        return Response.ok( users ).build();
     }
 
     @POST
@@ -36,5 +42,4 @@ public class UserQuery {
         listaUsuarios.add( user );
         return Response.ok( listaUsuarios ).build();
     }
-
 }

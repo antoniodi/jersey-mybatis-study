@@ -1,4 +1,4 @@
-package com.ing.jersey.application.controllers;
+package com.ing.jersey.application;
 
 import org.glassfish.jersey.server.ResourceConfig;
 import org.springframework.context.annotation.Configuration;
