@@ -15,9 +15,9 @@ public class UserController {
 
     private static final List<User> listaUsuarios = new ArrayList<User>() {
         {
-            add(new User( "1", "Rosa", "Marfil"));
-            add(new User( "2", "Pepito", "Grillo"));
-            add(new User( "3", "Manuela", "Lago"));
+            add(new User( 1, "Rosa", "Marfil"));
+            add(new User( 2, "Pepito", "Grillo"));
+            add(new User( 3, "Manuela", "Lago"));
         }
     };
 
@@ -29,17 +29,41 @@ public class UserController {
      * @return Response list Users
      */
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getUsers() {
+    @Produces( MediaType.APPLICATION_JSON )
+    public Response getAll() {
         List<User> users = this.usersMapper.findAll();
         return Response.ok( users ).build();
     }
 
+    @GET @Path("/{id}")
+    @Produces( MediaType.APPLICATION_JSON )
+    public Response get( @PathParam( "id" ) int id ) {
+        User user = this.usersMapper.find( id );
+        return Response.ok( user ).build();
+    }
+
     @POST
+    @Consumes( MediaType.APPLICATION_JSON )
+    @Produces( MediaType.APPLICATION_JSON )
+    public Response create( User user ) {
+        this.usersMapper.create( user );
+        List<User> users = this.usersMapper.findAll();
+        return Response.ok( users ).build();
+    }
+
+    @PUT
+    @Consumes( MediaType.APPLICATION_JSON )
+    @Produces( MediaType.APPLICATION_JSON )
+    public Response update( User user ) {
+        this.usersMapper.update( user );
+        List<User> users = this.usersMapper.findAll();
+        return Response.ok( users ).build();
+    }
+
+    @DELETE @Path("/ids/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response createUser( User user ) {
-        this.usersMapper.createUser( user );
+    public Response delete( @PathParam( "id" ) int id ) {
+        this.usersMapper.delete( id );
         List<User> users = this.usersMapper.findAll();
         return Response.ok( users ).build();
     }

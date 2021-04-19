@@ -6,7 +6,7 @@ public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private String id;
+    private int id;
 
     public String name;
 
@@ -16,7 +16,7 @@ public class User implements Serializable {
         super();
     }
 
-    public User( String id, String name, String username) {
+    public User( int id, String name, String username) {
         super();
         this.id = id;
         this.name = name;
@@ -39,11 +39,11 @@ public class User implements Serializable {
         this.username = username;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 }
